@@ -8,6 +8,7 @@ public class Node : MonoBehaviour
     [Header("Attributes")]
     public int x, y;
     public bool built;
+    public bool occupied;
     public int cost;
 
     [Header("Control variables")]
@@ -42,21 +43,28 @@ public class Node : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (GameManager.instance.stage == GAME_STAGE.EXPANSION)
+        over = true;
+
+        UpdateSortingOrder(999);
+
+        if (!built && GameManager.instance.stage == GAME_STAGE.EXPANSION)
+            _overlay.gameObject.SetActive(true);
+
+        _transform.DOKill();
+        _transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(() =>
         {
-            over = true;
+            _transform.localScale = Vector3.one;
+            UpdateSortingOrder(Mathf.RoundToInt(transform.position.y * 100f) * -1);
+        });
 
-            UpdateSortingOrder(999);
+        if (GameManager.instance.stage == GAME_STAGE.CONSTRUCTION)
+        {
+            if (!GameManager.instance._construction)
+                return;
 
-            if (!built)
-                _overlay.gameObject.SetActive(true);
-
-            _transform.DOKill();
-            _transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(() =>
-            {
-                _transform.localScale = Vector3.one;
-                UpdateSortingOrder(Mathf.RoundToInt(transform.position.y * 100f) * -1);
-            });
+            GameManager.instance._construction.gameObject.SetActive(built && !occupied);
+            GameManager.instance._construction.transform.position = _transform.position;
+            GameManager.instance._construction.GetComponent<SpriteRenderer>().sortingOrder = _sprite.sortingOrder + 102;
         }
     }
 
@@ -80,6 +88,11 @@ public class Node : MonoBehaviour
         {
             if (!built)
                 Build();
+        }
+        else if (GameManager.instance.stage == GAME_STAGE.CONSTRUCTION)
+        {
+            if (built && !occupied)
+                GameManager.instance.Construct(this);
         }
     }
 

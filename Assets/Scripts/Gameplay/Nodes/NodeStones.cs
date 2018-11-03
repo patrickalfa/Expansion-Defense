@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NodeWoods : Node
+public class NodeStones : Node
 {
     public int increment;
 
@@ -11,7 +11,9 @@ public class NodeWoods : Node
         if (!base.Build())
             return false;
 
-        GameManager.instance.woodRate += increment;
+        GameManager.instance.stoneRate += increment;
+        occupied = true;
+
         return true;
     }
 }

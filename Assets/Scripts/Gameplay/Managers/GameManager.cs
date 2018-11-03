@@ -20,12 +20,15 @@ public class GameManager : MonoBehaviour
 {
     [Header("Game phase")]
     public GAME_STATE state;
+    public GAME_STATE lateState;
     public GAME_STAGE stage;
+    public GAME_STAGE lateStage;
 
     [Header("Control variables")]
     public int maxTime;
     public int woodRate;
     public int stoneRate;
+    public int constructionIndex;
 
     [Header("Attributes")]
     public int time;
@@ -35,6 +38,10 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     public Node _baseNode;
     public SpriteRenderer _darkness;
+    public Construction _construction;
+
+    [Header("Prefabs")]
+    public GameObject[] pfConstructions;
 
     private static GameManager m_instance;
     public static GameManager instance
@@ -57,9 +64,10 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Countdown());
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-
+        lateState = state;
+        lateStage = stage;
     }
 
     private IEnumerator Countdown()
@@ -79,6 +87,9 @@ public class GameManager : MonoBehaviour
 
         stage = GAME_STAGE.CONSTRUCTION;
 
+        _construction = Instantiate(pfConstructions[constructionIndex]).
+            GetComponent<Construction>();
+
         time = maxTime;
 
         while (time > 0)
@@ -89,6 +100,15 @@ public class GameManager : MonoBehaviour
         }
 
         stage = GAME_STAGE.DEFENSE;
+
+        Destroy(_construction.gameObject);
+
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+
+            time++;
+        }
     }
 
     private void SetDarkness(float amount)
@@ -103,6 +123,27 @@ public class GameManager : MonoBehaviour
                 if (!n.built)
                     n.SetColor(new Color(amount, amount, amount, 1f));
             }
+        }
+    }
+
+    public void Construct(Node node)
+    {
+        if (!_construction.Build(node))
+            return;
+
+        _construction = Instantiate(pfConstructions[constructionIndex]).
+            GetComponent<Construction>();
+    }
+
+    public void SelectContruction(int index)
+    {
+        constructionIndex = index;
+
+        if (_construction)
+        {
+            Destroy(_construction.gameObject);
+            _construction = Instantiate(pfConstructions[constructionIndex]).
+            GetComponent<Construction>();
         }
     }
 }

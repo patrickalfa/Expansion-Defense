@@ -56,7 +56,6 @@ public class Generator : MonoBehaviour
         Destroy(nodes[x, y].gameObject);
         CreateNode(x, y, pfNodes.Length - 1);
 
-        nodes[x, y].built = true;
         GameManager.instance._baseNode = nodes[x, y];
     }
 

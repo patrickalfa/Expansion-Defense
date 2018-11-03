@@ -289,7 +289,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 0
   y: 0
-  built: 0
+  built: 1
+  occupied: 1
   cost: 0
   groundBuilt: {fileID: 21300006, guid: 0de62bef70dc5484ab0634b7fd84f14d, type: 3}
   contentBuilt: {fileID: 0}

@@ -5,6 +5,7 @@ using DG.Tweening;
 public class CameraDrag : MonoBehaviour
 {
     public float draggingThreshold;
+    public float minZoom, maxZoom, zoomSpeed;
 
     private Vector3 origin;
     private Vector3 offset;
@@ -20,6 +21,18 @@ public class CameraDrag : MonoBehaviour
     }
 
     private void LateUpdate()
+    {
+        HandleDrag();
+        HandleZoom();
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            _transform.DOMove(new Vector3(0f, 0f, -10f), 1f);
+            _camera.DOOrthoSize(10f, 1f);
+        }
+    }
+
+    private void HandleDrag()
     {
         if (Input.GetMouseButton(0))
         {
@@ -44,11 +57,11 @@ public class CameraDrag : MonoBehaviour
             dragging = false;
             GameManager.instance.state = GAME_STATE.PLANNING;
         }
+    }
 
-        if (Input.GetMouseButtonUp(1))
-        {
-            _transform.DOMove(new Vector3(0f, 0f, -10f), 1f);
-            _camera.DOOrthoSize(10f, 1f);
-        }
+    private void HandleZoom()
+    {
+        float zoom = Input.GetAxis("Mouse ScrollWheel") * -zoomSpeed;
+        _camera.orthographicSize = Mathf.Clamp(_camera.orthographicSize + zoom, minZoom, maxZoom);
     }
 }
