@@ -31,6 +31,8 @@ public class Construction : MonoBehaviour
         GameManager.instance.stone -= cost;
         _sprite.color = Color.white;
 
+        SetSortingOrder(node.GetComponent<SpriteRenderer>().sortingOrder + 102);
+
         return true;
     }
 

@@ -28,12 +28,18 @@ public class Generator : MonoBehaviour
         {
             for (int y = 0; y < size; y++)
             {
-                CreateNode(x, y, Random.Range(0, pfNodes.Length - 1));
+                int index = 0;
+                float val = Random.value;
+                if (val > .75f)
+                    index = 1;
+                else if (val > .5f)
+                    index = 2;
+
+                CreateNode(x, y, index);
             }
         }
 
-        CreateBaseNode((int)Random.Range(size * .25f, size * .75f),
-                        (int)Random.Range(size * .25f, size * .75f));
+        CreateBaseNode(size / 2, size / 2);
     }
 
     private void CreateNode(int x, int y, int index)

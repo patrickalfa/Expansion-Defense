@@ -24,12 +24,6 @@ public class CameraDrag : MonoBehaviour
     {
         HandleDrag();
         HandleZoom();
-
-        if (Input.GetMouseButtonUp(1))
-        {
-            _transform.DOMove(new Vector3(0f, 0f, -10f), 1f);
-            _camera.DOOrthoSize(10f, 1f);
-        }
     }
 
     private void HandleDrag()

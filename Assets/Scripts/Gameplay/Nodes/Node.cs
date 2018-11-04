@@ -12,19 +12,19 @@ public class Node : MonoBehaviour
     public int cost;
 
     [Header("Control variables")]
-    private bool over;
+    protected bool over;
 
     [Header("References")]
     public Sprite groundBuilt;
     public Sprite contentBuilt;
 
-    private Transform _transform;
-    private SpriteRenderer _sprite;
-    private SpriteRenderer _content;
-    private Transform _outline;
-    private Transform _overlay;
+    protected Transform _transform;
+    protected SpriteRenderer _sprite;
+    protected SpriteRenderer _content;
+    protected Transform _outline;
+    protected Transform _overlay;
 
-    private void Start()
+    protected virtual void Start()
     {
         _transform = transform;
         _sprite = GetComponent<SpriteRenderer>();
@@ -65,7 +65,7 @@ public class Node : MonoBehaviour
                 return;
 
             GameManager.instance._construction.gameObject.SetActive(built && !occupied);
-            GameManager.instance._construction.transform.position = _transform.position;
+            GameManager.instance._construction.transform.position = _transform.position + (Vector3.back * 1f);
             GameManager.instance._construction.SetSortingOrder(_sprite.sortingOrder + 102);
         }
     }

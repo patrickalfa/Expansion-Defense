@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     public Node _baseNode;
     public SpriteRenderer _darkness;
     public Construction _construction;
+    public Light _light;
 
     [Header("Prefabs")]
     public GameObject[] pfConstructions;
@@ -73,7 +74,7 @@ public class GameManager : MonoBehaviour
         lateStage = stage;
 
         if (Input.GetMouseButtonUp(1))
-            Spawner.instance.SpawnWave();
+            time = 0;
     }
 
     private IEnumerator Countdown()
@@ -93,9 +94,7 @@ public class GameManager : MonoBehaviour
 
         stage = GAME_STAGE.CONSTRUCTION;
 
-        _construction = Instantiate(pfConstructions[constructionIndex]).
-            GetComponent<Construction>();
-        _construction.gameObject.SetActive(false);
+        SelectContruction(constructionIndex);
 
         time = maxTime;
 
@@ -109,6 +108,7 @@ public class GameManager : MonoBehaviour
         stage = GAME_STAGE.DEFENSE;
 
         Destroy(_construction.gameObject);
+        Spawner.instance.SpawnWave();
 
         while (true)
         {
@@ -120,7 +120,12 @@ public class GameManager : MonoBehaviour
 
     private void SetDarkness(float amount)
     {
-        _darkness.color = new Color(0f, 0f, 0f, 1f - amount);
+        _light.intensity = Mathf.Lerp(0f, .75f, amount);
+
+        /*
+        amount *= .9f;
+
+        _darkness.color = new Color(0f, 0f, 0f, .9f - amount);
 
         for (int x = 0; x < Generator.instance.size; x++)
         {
@@ -128,9 +133,10 @@ public class GameManager : MonoBehaviour
             {
                 Node n = Generator.instance.GetNode(x, y);
                 if (!n.built)
-                    n.SetColor(new Color(amount, amount, amount, 1f));
+                    n.SetColor(new Color(.1f + amount, .1f + amount, .1f + amount, 1f));
             }
         }
+        */
     }
 
     public void Construct(Node node)
@@ -138,9 +144,8 @@ public class GameManager : MonoBehaviour
         if (!_construction.Build(node))
             return;
 
-        _construction = Instantiate(pfConstructions[constructionIndex]).
-            GetComponent<Construction>();
-        _construction.gameObject.SetActive(false);
+        _construction = null;
+        SelectContruction(constructionIndex);
     }
 
     public void SelectContruction(int index)
@@ -148,12 +153,11 @@ public class GameManager : MonoBehaviour
         constructionIndex = index;
 
         if (_construction)
-        {
             Destroy(_construction.gameObject);
 
-            _construction = Instantiate(pfConstructions[constructionIndex]).
+        _construction = Instantiate(pfConstructions[constructionIndex]).
                 GetComponent<Construction>();
-            _construction.gameObject.SetActive(false);
-        }
+        _construction.gameObject.SetActive(false);
+        _construction.SetSortingOrder(9999);
     }
 }
