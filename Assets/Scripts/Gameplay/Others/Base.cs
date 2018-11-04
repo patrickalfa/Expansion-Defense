@@ -25,8 +25,8 @@ public class Base : MonoBehaviour, IDamageable
     public bool TakeDamage(int damage)
     {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
-        _sprite.color = Color.Lerp(Color.black, Color.white, (float)health / (float)maxHealth);
-        _light.intensity = Mathf.Lerp(0f, 3f, (float)health / (float)maxHealth);
+        _sprite.material.color = Color.Lerp(Color.grey, Color.white, (float)health / (float)maxHealth);
+        _light.intensity = Mathf.Lerp(0f, 6f, (float)health / (float)maxHealth);
 
         _transform.DOKill();
         _transform.DOPunchScale(Vector3.one * .25f, .1f).OnComplete(() =>

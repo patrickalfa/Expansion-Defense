@@ -65,7 +65,7 @@ public class Node : MonoBehaviour
                 return;
 
             GameManager.instance._construction.gameObject.SetActive(built && !occupied);
-            GameManager.instance._construction.transform.position = _transform.position + (Vector3.back * 1f);
+            GameManager.instance._construction.transform.position = _transform.position;
             GameManager.instance._construction.SetSortingOrder(_sprite.sortingOrder + 102);
         }
     }
