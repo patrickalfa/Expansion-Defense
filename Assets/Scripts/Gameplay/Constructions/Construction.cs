@@ -7,10 +7,10 @@ public class Construction : MonoBehaviour
     public bool built;
     public int cost;
 
-    private Transform _transform;
-    private SpriteRenderer _sprite;
+    protected Transform _transform;
+    protected SpriteRenderer _sprite;
 
-    private Node node;
+    protected Node node;
 
     private void Start()
     {

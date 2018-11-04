@@ -5,7 +5,6 @@ using UnityEngine;
 public class Generator : MonoBehaviour
 {
     public int size;
-    public int seed;
     public GameObject[] pfNodes;
 
     private Node[,] nodes;
@@ -24,8 +23,6 @@ public class Generator : MonoBehaviour
     public void Generate()
     {
         nodes = new Node[size, size];
-
-        Random.InitState(seed);
 
         for (int x = 0; x < size; x++)
         {

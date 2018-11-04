@@ -49,11 +49,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1865307828296944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40348592c9a240b4aaf372dff36f92cc, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cb9b76e94820e94e8e149fdb2e69c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   built: 0
   cost: 15
+  damage: 2
+  range: 2
+  reloadTime: 1
 --- !u!212 &212155952796885310
 SpriteRenderer:
   m_ObjectHideFlags: 1

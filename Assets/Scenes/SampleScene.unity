@@ -396,6 +396,54 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 123591556}
   m_CullTransparentMesh: 0
+--- !u!1 &202185396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 202185397}
+  - component: {fileID: 202185398}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &202185397
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 202185396}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &202185398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 202185396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbd06e97c4386d2428254c5cd89c803a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pfEnemies:
+  - {fileID: 1081289296412662, guid: 4df22a59dae5b314f9d387587bf023c7, type: 2}
+  - {fileID: 1081289296412662, guid: 4b1398b1db249ac4eaeee904d093eb54, type: 2}
+  waves:
+  - enemyCount: 15
+    timeBetweenSpawns: 3
+    amountPerSpawn: 3
+  waveIndex: 0
 --- !u!1 &225810790
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   draggingThreshold: 0.001
   minZoom: 2
-  maxZoom: 10
+  maxZoom: 7.5
   zoomSpeed: 2
 --- !u!20 &519420031
 Camera:
@@ -1261,13 +1309,14 @@ MonoBehaviour:
   lateState: 2
   stage: 0
   lateStage: 2
+  seed: 777
   maxTime: 30
-  woodRate: 1
-  stoneRate: 1
   constructionIndex: 0
   time: 0
   wood: 30
   stone: 0
+  woodRate: 1
+  stoneRate: 1
   _baseNode: {fileID: 0}
   _darkness: {fileID: 225810792}
   _construction: {fileID: 0}
@@ -1405,7 +1454,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: 15
-  seed: 909
   pfNodes:
   - {fileID: 1395496998332142, guid: 32be0d6e86286224c94f9c705dc0097b, type: 2}
   - {fileID: 1395496998332142, guid: 2a281101daf3fe742b8d2bf477bae543, type: 2}

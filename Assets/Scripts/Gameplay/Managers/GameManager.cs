@@ -25,15 +25,16 @@ public class GameManager : MonoBehaviour
     public GAME_STAGE lateStage;
 
     [Header("Control variables")]
+    public int seed;
     public int maxTime;
-    public int woodRate;
-    public int stoneRate;
     public int constructionIndex;
 
     [Header("Attributes")]
     public int time;
     public int wood;
     public int stone;
+    public int woodRate;
+    public int stoneRate;
 
     [Header("References")]
     public Node _baseNode;
@@ -56,10 +57,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        state = GAME_STATE.PLANNING;
+        Random.InitState(seed);
         Generator.instance.Generate();
 
         Camera.main.transform.position = _baseNode.transform.position + (Vector3.back * 10f);
+
+        state = GAME_STATE.PLANNING;
 
         StartCoroutine(Countdown());
     }
@@ -68,6 +71,9 @@ public class GameManager : MonoBehaviour
     {
         lateState = state;
         lateStage = stage;
+
+        if (Input.GetMouseButtonUp(1))
+            Spawner.instance.SpawnWave();
     }
 
     private IEnumerator Countdown()

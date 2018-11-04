@@ -117,9 +117,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4730847617205454}
   - component: {fileID: 212184586575859192}
+  - component: {fileID: 61878377268784264}
+  - component: {fileID: 114672664842042280}
   m_Layer: 0
   m_Name: Content
-  m_TagString: Untagged
+  m_TagString: Base
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -276,6 +278,31 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!61 &61878377268784264
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1623113180046744}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.16}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.125, y: 0.125}
+  m_EdgeRadius: 0
 --- !u!114 &114170476047628574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -294,6 +321,18 @@ MonoBehaviour:
   cost: 0
   groundBuilt: {fileID: 21300006, guid: 0de62bef70dc5484ab0634b7fd84f14d, type: 3}
   contentBuilt: {fileID: 0}
+--- !u!114 &114672664842042280
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1623113180046744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d7e3ceb61abd4e4098f4446815bb6f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
 --- !u!212 &212157442040903948
 SpriteRenderer:
   m_ObjectHideFlags: 1
