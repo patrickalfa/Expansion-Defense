@@ -45,18 +45,20 @@ public class Node : MonoBehaviour
     {
         over = true;
 
-        UpdateSortingOrder(999);
-
-        if (!built && GameManager.instance.stage == GAME_STAGE.EXPANSION)
-            _overlay.gameObject.SetActive(true);
-
-        _transform.DOKill();
-        _transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(() =>
+        if (GameManager.instance.stage == GAME_STAGE.EXPANSION || occupied)
         {
-            _transform.localScale = Vector3.one;
-            UpdateSortingOrder(Mathf.RoundToInt(transform.position.y * 100f) * -1);
-        });
+            UpdateSortingOrder(999);
 
+            if (!built && GameManager.instance.stage == GAME_STAGE.EXPANSION)
+                _overlay.gameObject.SetActive(true);
+
+            _transform.DOKill();
+            _transform.DOPunchScale(Vector3.one * .1f, .25f).OnComplete(() =>
+            {
+                _transform.localScale = Vector3.one;
+                UpdateSortingOrder(Mathf.RoundToInt(transform.position.y * 100f) * -1);
+            });
+        }
         if (GameManager.instance.stage == GAME_STAGE.CONSTRUCTION)
         {
             if (!GameManager.instance._construction)
@@ -64,7 +66,7 @@ public class Node : MonoBehaviour
 
             GameManager.instance._construction.gameObject.SetActive(built && !occupied);
             GameManager.instance._construction.transform.position = _transform.position;
-            GameManager.instance._construction.GetComponent<SpriteRenderer>().sortingOrder = _sprite.sortingOrder + 102;
+            GameManager.instance._construction.SetSortingOrder(_sprite.sortingOrder + 102);
         }
     }
 

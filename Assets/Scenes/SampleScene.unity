@@ -1310,11 +1310,11 @@ MonoBehaviour:
   stage: 0
   lateStage: 2
   seed: 777
-  maxTime: 30
+  maxTime: 10
   constructionIndex: 0
   time: 0
-  wood: 30
-  stone: 0
+  wood: 300
+  stone: 300
   woodRate: 1
   stoneRate: 1
   _baseNode: {fileID: 0}

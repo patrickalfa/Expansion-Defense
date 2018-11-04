@@ -12,7 +12,7 @@ public class Construction : MonoBehaviour
 
     protected Node node;
 
-    private void Start()
+    protected virtual void Start()
     {
         _transform = transform;
         _sprite = GetComponent<SpriteRenderer>();
@@ -32,5 +32,11 @@ public class Construction : MonoBehaviour
         _sprite.color = Color.white;
 
         return true;
+    }
+
+    public virtual void SetSortingOrder(int sortingOrder)
+    {
+        if (_sprite)
+            _sprite.sortingOrder = sortingOrder;
     }
 }

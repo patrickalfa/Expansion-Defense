@@ -95,6 +95,7 @@ public class GameManager : MonoBehaviour
 
         _construction = Instantiate(pfConstructions[constructionIndex]).
             GetComponent<Construction>();
+        _construction.gameObject.SetActive(false);
 
         time = maxTime;
 
@@ -139,6 +140,7 @@ public class GameManager : MonoBehaviour
 
         _construction = Instantiate(pfConstructions[constructionIndex]).
             GetComponent<Construction>();
+        _construction.gameObject.SetActive(false);
     }
 
     public void SelectContruction(int index)
@@ -148,8 +150,10 @@ public class GameManager : MonoBehaviour
         if (_construction)
         {
             Destroy(_construction.gameObject);
+
             _construction = Instantiate(pfConstructions[constructionIndex]).
-            GetComponent<Construction>();
+                GetComponent<Construction>();
+            _construction.gameObject.SetActive(false);
         }
     }
 }
