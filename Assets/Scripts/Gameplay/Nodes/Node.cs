@@ -16,7 +16,7 @@ public class Node : MonoBehaviour
 
     [Header("References")]
     public Sprite groundBuilt;
-    public Sprite contentBuilt;
+    public GameObject _contentBuilt;
 
     protected Transform _transform;
     protected SpriteRenderer _sprite;
@@ -107,8 +107,14 @@ public class Node : MonoBehaviour
         GameManager.instance.wood -= cost;
 
         _sprite.sprite = groundBuilt;
+
         if (_content)
-            _content.sprite = contentBuilt;
+            _content.gameObject.SetActive(false);
+        if (_contentBuilt)
+        {
+            _contentBuilt.SetActive(true);
+            _content = _contentBuilt.GetComponent<SpriteRenderer>();
+        }
 
         SetColor(Color.white);
 

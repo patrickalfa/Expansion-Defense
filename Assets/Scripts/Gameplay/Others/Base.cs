@@ -12,11 +12,13 @@ public class Base : MonoBehaviour, IDamageable
     private Transform _transform;
     private SpriteRenderer _sprite;
     private Light _light;
+    private Animator _animator;
 
     private void Start()
     {
         _transform = transform;
         _sprite = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
         _light = _transform.GetComponentInChildren<Light>();
 
         health = maxHealth;
@@ -25,8 +27,12 @@ public class Base : MonoBehaviour, IDamageable
     public bool TakeDamage(int damage)
     {
         health = Mathf.Clamp(health - damage, 0, maxHealth);
-        _sprite.material.color = Color.Lerp(Color.grey, Color.white, (float)health / (float)maxHealth);
-        _light.intensity = Mathf.Lerp(0f, 6f, (float)health / (float)maxHealth);
+
+        float factor = (float)health / (float)maxHealth;
+
+        _sprite.material.color = Color.Lerp(Color.grey, Color.white, factor);
+        _light.intensity = Mathf.Lerp(0f, 6f, factor);
+        _animator.speed = Mathf.Lerp(0f, 1f, factor);
 
         _transform.DOKill();
         _transform.DOPunchScale(Vector3.one * .25f, .1f).OnComplete(() =>
