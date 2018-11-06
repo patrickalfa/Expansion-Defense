@@ -49,7 +49,7 @@ public class Node : MonoBehaviour
         {
             UpdateSortingOrder(999);
 
-            if (!built && GameManager.instance.stage == GAME_STAGE.EXPANSION)
+            if (CanBuild())
                 _overlay.gameObject.SetActive(true);
 
             _transform.DOKill();
@@ -74,8 +74,7 @@ public class Node : MonoBehaviour
     {
         over = false;
 
-        if (!built)
-            _overlay.gameObject.SetActive(false);
+        _overlay.gameObject.SetActive(false);
 
         _transform.DOKill();
         _transform.localScale = Vector3.one;
@@ -100,7 +99,7 @@ public class Node : MonoBehaviour
 
     protected virtual bool Build()
     {
-        if (GameManager.instance.wood < cost)
+        if (CanBuild())
             return false;
 
         built = true;
@@ -132,6 +131,24 @@ public class Node : MonoBehaviour
         return true;
     }
 
+    private bool CanBuild()
+    {
+        return (IsAdjacent() && IsAffordable() && !built);
+    }
+
+    private bool IsAffordable()
+    {
+        return (GameManager.instance.wood < cost);
+    }
+
+    private bool IsAdjacent()
+    {
+        return (Generator.instance.GetNode(x - 1, y) ||
+                Generator.instance.GetNode(x + 1, y) ||
+                Generator.instance.GetNode(x, y - 1) ||
+                Generator.instance.GetNode(x, y + 1));
+    }
+    
     private void UpdateSortingOrder(int sortingOrder)
     {
         _sprite.sortingOrder = sortingOrder;

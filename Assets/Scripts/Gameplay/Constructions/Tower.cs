@@ -10,18 +10,20 @@ public class Tower : Construction
     public float range;
     public float reloadTime;
 
-    private bool canFire = true;
+    [Header("References")]
+    public Transform pfProjectile;
 
+    private bool canFire = true;
+    private Transform _turret;
     private GameObject _rangeIndicator;
-    private Transform _projectile;
 
     protected override void Start()
     {
         base.Start();
 
+        _turret = _transform.Find("Turret");
         _rangeIndicator = _transform.Find("Range").gameObject;
         _rangeIndicator.transform.localScale = Vector3.one * range * 2f;
-        _projectile = _transform.Find("Projectile");
     }
 
     private void FixedUpdate()
@@ -45,13 +47,14 @@ public class Tower : Construction
 
     private void Shoot(Transform target)
     {
-        _projectile.position = _transform.position;
-        _projectile.gameObject.SetActive(true);
-        _projectile.DOMove(target.position, .1f).OnComplete(() =>
-        {
-            _projectile.gameObject.SetActive(false);
-            target.GetComponent<IDamageable>().TakeDamage(damage);
-        });
+        Projectile p = Instantiate(pfProjectile, _transform.position,
+                        Quaternion.identity, _transform).GetComponent<Projectile>();
+
+        p.damage = damage;
+        p.target = target;
+
+        _turret.up = (target.position - _transform.position).normalized;
+        _turret.GetComponent<Animator>().SetTrigger("Fire");
 
         canFire = false;
         Invoke("Reload", reloadTime);
