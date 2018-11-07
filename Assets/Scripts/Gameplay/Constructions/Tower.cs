@@ -47,8 +47,8 @@ public class Tower : Construction
 
     private void Shoot(Transform target)
     {
-        Projectile p = Instantiate(pfProjectile, _transform.position,
-                        Quaternion.identity, _transform).GetComponent<Projectile>();
+        Projectile p = Instantiate(pfProjectile, _turret.position,
+                        _turret.rotation, _transform).GetComponent<Projectile>();
 
         p.damage = damage;
         p.target = target;

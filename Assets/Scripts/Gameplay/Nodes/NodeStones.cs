@@ -21,7 +21,7 @@ public class NodeStones : Node
         if (!base.Build())
             return false;
 
-        GameManager.instance.stoneRate += increment;
+        GameManager.instance.goldRate += increment;
         occupied = true;
 
         return true;

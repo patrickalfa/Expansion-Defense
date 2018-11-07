@@ -49,7 +49,7 @@ public class Node : MonoBehaviour
         {
             UpdateSortingOrder(999);
 
-            if (CanBuild())
+            if (IsAdjacent() && !built)
                 _overlay.gameObject.SetActive(true);
 
             _transform.DOKill();
@@ -99,7 +99,7 @@ public class Node : MonoBehaviour
 
     protected virtual bool Build()
     {
-        if (CanBuild())
+        if (!CanBuild())
             return false;
 
         built = true;
@@ -138,15 +138,23 @@ public class Node : MonoBehaviour
 
     private bool IsAffordable()
     {
-        return (GameManager.instance.wood < cost);
+        return (GameManager.instance.wood >= cost);
     }
 
     private bool IsAdjacent()
     {
-        return (Generator.instance.GetNode(x - 1, y) ||
-                Generator.instance.GetNode(x + 1, y) ||
-                Generator.instance.GetNode(x, y - 1) ||
-                Generator.instance.GetNode(x, y + 1));
+        Node node;
+
+        node = Generator.instance.GetNode(x - 1, y);
+        bool l = (node && node.built);
+        node = Generator.instance.GetNode(x + 1, y);
+        bool r = (node && node.built);
+        node = Generator.instance.GetNode(x, y - 1);
+        bool u = (node && node.built);
+        node = Generator.instance.GetNode(x, y + 1);
+        bool d = (node && node.built);
+
+        return (l || r || u || d);
     }
     
     private void UpdateSortingOrder(int sortingOrder)

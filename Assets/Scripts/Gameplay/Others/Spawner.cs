@@ -16,6 +16,8 @@ public class Spawner : MonoBehaviour
     public WAVE[] waves;
     public int waveIndex;
 
+    public int enemiesAlive;
+
     private static Spawner m_instance;
     public static Spawner instance
     {
@@ -35,6 +37,7 @@ public class Spawner : MonoBehaviour
     private IEnumerator WaitForWave()
     {
         WAVE w = waves[waveIndex];
+        enemiesAlive = w.enemyCount;
         int count = w.amountPerSpawn;
 
         while (count > 0)
@@ -53,5 +56,7 @@ public class Spawner : MonoBehaviour
 
             yield return new WaitForSeconds(w.timeBetweenSpawns);
         }
+
+        Spawner.instance.waveIndex++;
     }
 }

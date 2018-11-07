@@ -32,9 +32,9 @@ public class GameManager : MonoBehaviour
     [Header("Attributes")]
     public int time;
     public int wood;
-    public int stone;
+    public int gold;
     public int woodRate;
-    public int stoneRate;
+    public int goldRate;
 
     [Header("References")]
     public Node _baseNode;
@@ -70,6 +70,24 @@ public class GameManager : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (lateStage != stage)
+        {
+            if (lateStage == GAME_STAGE.CONSTRUCTION)
+                Destroy(_construction.gameObject);
+
+            switch (stage)
+            {
+                case GAME_STAGE.EXPANSION:
+                    break;
+                case GAME_STAGE.CONSTRUCTION:
+                    SelectContruction(constructionIndex);
+                    break;
+                case GAME_STAGE.DEFENSE:
+                    Spawner.instance.SpawnWave();
+                    break;
+            }
+        }
+
         lateState = state;
         lateStage = stage;
 
@@ -79,42 +97,41 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Countdown()
     {
-        time = maxTime;
-
-        while (time > 0)
-        {
-            yield return new WaitForSeconds(1f);
-
-            time--;
-            wood += woodRate;
-            stone += stoneRate;
-
-            SetDarkness((float)time / (float)maxTime);
-        }
-
-        stage = GAME_STAGE.CONSTRUCTION;
-
-        SelectContruction(constructionIndex);
-
-        time = maxTime;
-
-        while (time > 0)
-        {
-            yield return new WaitForSeconds(1f);
-
-            time--;
-        }
-
-        stage = GAME_STAGE.DEFENSE;
-
-        Destroy(_construction.gameObject);
-        Spawner.instance.SpawnWave();
-
         while (true)
         {
-            yield return new WaitForSeconds(1f);
+            stage = GAME_STAGE.EXPANSION;
 
-            time++;
+            time = maxTime;
+
+            while (time > 0)
+            {
+                yield return new WaitForSeconds(1f);
+
+                time--;
+                wood += woodRate;
+                gold += goldRate;
+
+                SetDarkness((float)time / (float)maxTime);
+            }
+
+            stage = GAME_STAGE.DEFENSE;
+            yield return new WaitForEndOfFrame();
+
+            while (Spawner.instance.enemiesAlive > 0)
+            {
+                yield return new WaitForSeconds(1f);
+
+                time++;
+            }
+
+            float amount = 0f;
+            while (amount < 1f)
+            {
+                amount = Mathf.Clamp(amount + Time.deltaTime, 0f, 1f);
+                SetDarkness(amount);
+
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 
@@ -159,5 +176,10 @@ public class GameManager : MonoBehaviour
                 GetComponent<Construction>();
         _construction.gameObject.SetActive(false);
         _construction.SetSortingOrder(9999);
+    }
+
+    public void SetStage(int stage)
+    {
+        this.stage = (GAME_STAGE)stage;
     }
 }

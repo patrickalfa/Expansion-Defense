@@ -20,7 +20,7 @@ public class Construction : MonoBehaviour
 
     public virtual bool Build(Node node)
     {
-        if (GameManager.instance.stone < cost)
+        if (GameManager.instance.gold < cost)
             return false;
 
         built = true;
@@ -28,7 +28,7 @@ public class Construction : MonoBehaviour
 
         this.node = node;
 
-        GameManager.instance.stone -= cost;
+        GameManager.instance.gold -= cost;
         _sprite.color = Color.white;
 
         SetSortingOrder(node.GetComponent<SpriteRenderer>().sortingOrder + 102);

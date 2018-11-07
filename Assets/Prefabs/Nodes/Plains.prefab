@@ -36,10 +36,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4217422783027546}
   - component: {fileID: 212596678592104644}
+  - component: {fileID: 114030442390655144}
   - component: {fileID: 61402145523547218}
   - component: {fileID: 114170476047628574}
   m_Layer: 0
-  m_Name: Grass
+  m_Name: Plains
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,6 +247,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114030442390655144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1395496998332142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e5b1ca1e97cacf4e9900168b814f542, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  variations:
+  - {fileID: 21300000, guid: 9243e1efe0c32014da2558883d821e7c, type: 3}
+  - {fileID: 21300002, guid: 9243e1efe0c32014da2558883d821e7c, type: 3}
+  - {fileID: 21300004, guid: 9243e1efe0c32014da2558883d821e7c, type: 3}
+  - {fileID: 21300006, guid: 9243e1efe0c32014da2558883d821e7c, type: 3}
 --- !u!114 &114170476047628574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -263,7 +280,7 @@ MonoBehaviour:
   occupied: 0
   cost: 5
   groundBuilt: {fileID: 21300004, guid: 0de62bef70dc5484ab0634b7fd84f14d, type: 3}
-  contentBuilt: {fileID: 0}
+  _contentBuilt: {fileID: 0}
 --- !u!212 &212069856871019544
 SpriteRenderer:
   m_ObjectHideFlags: 1

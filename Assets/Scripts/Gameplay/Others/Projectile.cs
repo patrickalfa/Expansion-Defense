@@ -11,25 +11,25 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        _transform = _transform;
+        _transform = transform;
     }
 
     private void FixedUpdate()
     {
-        if (!_target)
+        if (!target)
             DestroySelf();
         else
         {
-            Vector3 dir = (_target.position - _transform.position).normalized;
-            _transform.Translate(dir * speed * Time.fixedDeltaTime);
+            Vector3 dir = (target.position - _transform.position).normalized;
             _transform.up = dir;
+            _transform.position += _transform.up * speed * Time.fixedDeltaTime;
         }
 
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.CompareTag("Enemy"))
+        if (col.transform == target)
         {
             col.GetComponent<IDamageable>().TakeDamage(damage);
             DestroySelf();

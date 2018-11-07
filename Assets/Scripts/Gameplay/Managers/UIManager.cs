@@ -10,6 +10,9 @@ public class UIManager : MonoBehaviour
     public Text txtStone;
     public Text txtStage;
 
+    public GameObject pnlStages;
+    public Button[] btnStages;
+
     public GameObject pnlConstructions;
     public Button[] btnConstructions;
 
@@ -26,33 +29,50 @@ public class UIManager : MonoBehaviour
         txtWood.text = "W: " + GameManager.instance.wood +
             " (+" + GameManager.instance.woodRate + ")";
 
-        txtStone.text = "R: " + GameManager.instance.stone +
-            " (+" + GameManager.instance.stoneRate + ")";
+        txtStone.text = "G: " + GameManager.instance.gold +
+            " (+" + GameManager.instance.goldRate + ")";
 
 
         if (GameManager.instance.lateStage != GameManager.instance.stage)
-        {
-            switch (GameManager.instance.stage)
-            {
-                case GAME_STAGE.EXPANSION:
-                    txtStage.text = "EXPANSION";
-                    break;
-                case GAME_STAGE.CONSTRUCTION:
-                    txtStage.text = "CONSTRUCTION";
-                    pnlConstructions.SetActive(true);
-                    break;
-                case GAME_STAGE.DEFENSE:
-                    txtStage.text = "DEFENSE";
-                    pnlConstructions.SetActive(false);
-                    break;
-            }
-        }
+            HandleStageUI();
 
         if (lateConstructionIndex != GameManager.instance.constructionIndex)
+            ChangeContructionButton();
+    }
+
+    private void HandleStageUI()
+    {
+        switch (GameManager.instance.stage)
         {
-            btnConstructions[lateConstructionIndex].transform.Find("Outline").gameObject.SetActive(false);
-            btnConstructions[GameManager.instance.constructionIndex].transform.Find("Outline").gameObject.SetActive(true);
-            lateConstructionIndex = GameManager.instance.constructionIndex;
+            case GAME_STAGE.EXPANSION:
+                txtStage.text = "EXPANSION";
+                pnlStages.SetActive(true);
+                pnlConstructions.SetActive(false);
+                txtTimer.gameObject.SetActive(true);
+                btnStages[1].transform.Find("Outline").gameObject.SetActive(false);
+                btnStages[0].transform.Find("Outline").gameObject.SetActive(true);
+                break;
+            case GAME_STAGE.CONSTRUCTION:
+                txtStage.text = "CONSTRUCTION";
+                pnlStages.SetActive(true);
+                pnlConstructions.SetActive(true);
+                txtTimer.gameObject.SetActive(true);
+                btnStages[0].transform.Find("Outline").gameObject.SetActive(false);
+                btnStages[1].transform.Find("Outline").gameObject.SetActive(true);
+                break;
+            case GAME_STAGE.DEFENSE:
+                txtStage.text = "DEFENSE";
+                pnlStages.SetActive(false);
+                pnlConstructions.SetActive(false);
+                txtTimer.gameObject.SetActive(false);
+                break;
         }
+    }
+
+    private void ChangeContructionButton()
+    {
+        btnConstructions[lateConstructionIndex].transform.Find("Outline").gameObject.SetActive(false);
+        btnConstructions[GameManager.instance.constructionIndex].transform.Find("Outline").gameObject.SetActive(true);
+        lateConstructionIndex = GameManager.instance.constructionIndex;
     }
 }

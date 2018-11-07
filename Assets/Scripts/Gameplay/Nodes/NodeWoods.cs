@@ -10,8 +10,8 @@ public class NodeWoods : Node
     {
         base.Start();
 
-        float hMin = (40f / 360f);
-        float hMax = (80f / 360f);
+        float hMin = (30f / 360f);
+        float hMax = (60f / 360f);
         _content.material.color = Random.ColorHSV(hMin, hMax, 0f, 1f, 1f, 1f);
     }
 

@@ -45,6 +45,8 @@ public class Enemy : MonoBehaviour, IDamageable
             GameManager.instance._baseNode.transform.Find("Content").
                    GetComponent<IDamageable>().TakeDamage(damage);
 
+            Spawner.instance.enemiesAlive--;
+
             _transform.DOKill();
 
             Destroy(gameObject);
@@ -53,6 +55,9 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public bool TakeDamage(int damage)
     {
+        if (health == 0)
+            return true;
+
         health = Mathf.Clamp(health - damage, 0, maxHealth);
         canMove = false;
         _rigidbody.velocity = Vector2.zero;
@@ -66,6 +71,8 @@ public class Enemy : MonoBehaviour, IDamageable
             {
                 Destroy(gameObject);
             });
+
+            Spawner.instance.enemiesAlive--;
 
             return true;
         }
