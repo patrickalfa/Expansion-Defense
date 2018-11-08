@@ -28,9 +28,21 @@ public class Tower : Construction
 
     private void FixedUpdate()
     {
-        Collider2D col = Physics2D.OverlapCircle(_transform.position, range, LayerMask.GetMask("Enemy"));
-        if (col && canFire)
-            Shoot(col.transform);
+        Collider2D[] cols = Physics2D.OverlapCircleAll(_transform.position, range, LayerMask.GetMask("Enemy"));
+
+        bool shot = false;
+        foreach (Collider2D col in cols)
+        {
+            if (col && canFire && !col.GetComponent<Enemy>().targeted)
+            {
+                Shoot(col.transform);
+                shot = true;
+                break;
+            }
+        }
+
+        if (!shot && cols.Length > 0 && canFire)
+            Shoot(cols[0].transform);
     }
 
     public override bool Build(Node node)
@@ -47,6 +59,8 @@ public class Tower : Construction
 
     private void Shoot(Transform target)
     {
+        target.GetComponent<Enemy>().targeted = true;
+
         Projectile p = Instantiate(pfProjectile, _turret.position,
                         _turret.rotation, _transform).GetComponent<Projectile>();
 

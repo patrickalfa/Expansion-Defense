@@ -44,7 +44,7 @@ public class Spawner : MonoBehaviour
         {
             for (int i = 0; i < count; i++)
             {
-                Vector3 pos = Random.insideUnitCircle.normalized * Random.Range(10f, 12f);
+                Vector3 pos = Random.insideUnitCircle.normalized * Random.Range(15f, 17f);
                 Instantiate(pfEnemies[Random.Range(0, pfEnemies.Length)],
                             pos, Quaternion.identity, transform);
 

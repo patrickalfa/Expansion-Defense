@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public float speed;
     public int damage;
     public int maxHealth;
+    public bool targeted;
 
     private float health;
     private bool canMove = true;
@@ -36,6 +37,7 @@ public class Enemy : MonoBehaviour, IDamageable
             dir += (Vector2)(_transform.position - col.transform.position).normalized * .25f;
 
         _rigidbody.velocity = dir.normalized * speed;
+        _transform.up = dir;
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -57,6 +59,8 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if (health == 0)
             return true;
+
+        targeted = false;
 
         health = Mathf.Clamp(health - damage, 0, maxHealth);
         canMove = false;

@@ -61,12 +61,12 @@ public class Node : MonoBehaviour
         }
         if (GameManager.instance.stage == GAME_STAGE.CONSTRUCTION)
         {
-            if (!GameManager.instance._construction)
+            if (!Constructor.instance._construction)
                 return;
 
-            GameManager.instance._construction.gameObject.SetActive(built && !occupied);
-            GameManager.instance._construction.transform.position = _transform.position;
-            GameManager.instance._construction.SetSortingOrder(_sprite.sortingOrder + 102);
+            Constructor.instance._construction.gameObject.SetActive(built && !occupied);
+            Constructor.instance._construction.transform.position = _transform.position;
+            Constructor.instance._construction.SetSortingOrder(_sprite.sortingOrder + 102);
         }
     }
 
@@ -93,7 +93,7 @@ public class Node : MonoBehaviour
         else if (GameManager.instance.stage == GAME_STAGE.CONSTRUCTION)
         {
             if (built && !occupied)
-                GameManager.instance.Construct(this);
+                Constructor.instance.Construct(this);
         }
     }
 
@@ -184,6 +184,8 @@ public class Node : MonoBehaviour
         if (node) node.UpdateNodeOutline();
         node = Generator.instance.GetNode(x, y + 1);
         if (node) node.UpdateNodeOutline();
+
+        
     }
 
     public void UpdateNodeOutline()
@@ -202,6 +204,20 @@ public class Node : MonoBehaviour
         _outline.transform.Find("Right").gameObject.SetActive(!r);
         _outline.transform.Find("Up").gameObject.SetActive(!u);
         _outline.transform.Find("Down").gameObject.SetActive(!d);
+
+        foreach (Transform c in _outline.Find("Corners"))
+        {
+            c.gameObject.SetActive(true);
+
+            if (c.name.Contains("Left") && l)
+                c.gameObject.SetActive(false);
+            if (c.name.Contains("Right") && r)
+                c.gameObject.SetActive(false);
+            if (c.name.Contains("Top") && u)
+                c.gameObject.SetActive(false);
+            if (c.name.Contains("Bottom") && d)
+                c.gameObject.SetActive(false);
+        }
     }
 
     public void SetColor(Color color)

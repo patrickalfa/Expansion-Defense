@@ -1,14 +1,15 @@
 fileFormatVersion: 2
-guid: c798c461f6737f042be3b7b34a941596
+guid: df2ea5c3f09515743a21f9cc9dbbe071
 TextureImporter:
   fileIDToRecycleName:
-    21300000: mine_0
-    21300002: mine_1
-    21300004: mine_2
-    21300006: mine_3
-    21300008: mine_4
-    21300010: mine_5
-    21300012: mine_6
+    21300000: tower_turret2_0
+    21300002: tower_turret2_1
+    21300004: tower_turret2_2
+    21300006: tower_turret2_3
+    21300008: tower_turret2_4
+    21300010: tower_turret2_5
+    21300012: tower_turret2_6
+    21300014: tower_turret2_7
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -52,7 +53,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 376
+  spritePixelsToUnits: 360
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,141 +114,161 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: mine_0
+      name: tower_turret2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 256
         height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 05edcf5681771114280362edbf0bb3f7
+      spriteID: 76cadf44f66e88e41a773bfbf7d89cfe
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mine_1
+      name: tower_turret2_1
       rect:
         serializedVersion: 2
         x: 256
         y: 0
         width: 256
         height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d91832d16fc302246b22b83a3d52ad4a
+      spriteID: 746b5c2c09f4c494c8966bfe0279deea
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mine_2
+      name: tower_turret2_2
       rect:
         serializedVersion: 2
         x: 512
         y: 0
         width: 256
         height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb5f4e1ee460ee24487aa47d7d488020
+      spriteID: 894a0f26e417daf44aa25a24e948e1aa
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mine_3
+      name: tower_turret2_3
       rect:
         serializedVersion: 2
         x: 768
         y: 0
         width: 256
         height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 451dd46d16d0b014b96adc4191c18450
+      spriteID: fefcfe75bc7b6bc4687aa879d6bcd4b4
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mine_4
+      name: tower_turret2_4
       rect:
         serializedVersion: 2
         x: 1024
         y: 0
         width: 256
         height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3888fb055b22b214a9688231d70adea8
+      spriteID: c4fb9a6931bfb5945bb2d2693f6631cc
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mine_5
+      name: tower_turret2_5
       rect:
         serializedVersion: 2
         x: 1280
         y: 0
         width: 256
         height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 536ef799b6e1c0845a62744436af457d
+      spriteID: fa9c90d73093f7c40b3eecaa18cd0b41
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mine_6
+      name: tower_turret2_6
       rect:
         serializedVersion: 2
         x: 1536
         y: 0
         width: 256
         height: 256
-      alignment: 9
-      pivot: {x: 0.5, y: 0.2}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2bb1d83570412604f87ec2493bceefc5
+      spriteID: 4a6fe4ff81b0e66458146c7fa831b378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: tower_turret2_7
+      rect:
+        serializedVersion: 2
+        x: 1792
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91db1fc932c10c04497f3f0106d2f1a3
       vertices: []
       indices: 
       edges: []
@@ -255,7 +276,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: b40a3ba71ff42e34bae121f57bcefb26
+    spriteID: 80107e3dfbb12af4ba0729d3bb314abd
     vertices: []
     indices: 
     edges: []

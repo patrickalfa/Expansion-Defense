@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
         if (GameManager.instance.lateStage != GameManager.instance.stage)
             HandleStageUI();
 
-        if (lateConstructionIndex != GameManager.instance.constructionIndex)
+        if (lateConstructionIndex != Constructor.instance.constructionIndex)
             ChangeContructionButton();
     }
 
@@ -72,7 +72,7 @@ public class UIManager : MonoBehaviour
     private void ChangeContructionButton()
     {
         btnConstructions[lateConstructionIndex].transform.Find("Outline").gameObject.SetActive(false);
-        btnConstructions[GameManager.instance.constructionIndex].transform.Find("Outline").gameObject.SetActive(true);
-        lateConstructionIndex = GameManager.instance.constructionIndex;
+        btnConstructions[Constructor.instance.constructionIndex].transform.Find("Outline").gameObject.SetActive(true);
+        lateConstructionIndex = Constructor.instance.constructionIndex;
     }
 }

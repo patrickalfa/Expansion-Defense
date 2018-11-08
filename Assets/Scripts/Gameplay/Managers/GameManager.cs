@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
     [Header("Control variables")]
     public int seed;
     public int maxTime;
-    public int constructionIndex;
 
     [Header("Attributes")]
     public int time;
@@ -39,11 +38,9 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     public Node _baseNode;
     public SpriteRenderer _darkness;
-    public Construction _construction;
     public Light _light;
 
-    [Header("Prefabs")]
-    public GameObject[] pfConstructions;
+    
 
     private static GameManager m_instance;
     public static GameManager instance
@@ -73,14 +70,14 @@ public class GameManager : MonoBehaviour
         if (lateStage != stage)
         {
             if (lateStage == GAME_STAGE.CONSTRUCTION)
-                Destroy(_construction.gameObject);
+                Destroy(Constructor.instance._construction.gameObject);
 
             switch (stage)
             {
                 case GAME_STAGE.EXPANSION:
                     break;
                 case GAME_STAGE.CONSTRUCTION:
-                    SelectContruction(constructionIndex);
+                    Constructor.instance.SelectContruction(Constructor.instance.constructionIndex);
                     break;
                 case GAME_STAGE.DEFENSE:
                     Spawner.instance.SpawnWave();
@@ -124,6 +121,8 @@ public class GameManager : MonoBehaviour
                 time++;
             }
 
+            yield return new WaitForSeconds(1f);
+
             float amount = 0f;
             while (amount < 1f)
             {
@@ -156,27 +155,7 @@ public class GameManager : MonoBehaviour
         */
     }
 
-    public void Construct(Node node)
-    {
-        if (!_construction.Build(node))
-            return;
-
-        _construction = null;
-        SelectContruction(constructionIndex);
-    }
-
-    public void SelectContruction(int index)
-    {
-        constructionIndex = index;
-
-        if (_construction)
-            Destroy(_construction.gameObject);
-
-        _construction = Instantiate(pfConstructions[constructionIndex]).
-                GetComponent<Construction>();
-        _construction.gameObject.SetActive(false);
-        _construction.SetSortingOrder(9999);
-    }
+    
 
     public void SetStage(int stage)
     {
