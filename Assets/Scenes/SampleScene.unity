@@ -541,22 +541,30 @@ MonoBehaviour:
   pfEnemies:
   - {fileID: 1081289296412662, guid: 4df22a59dae5b314f9d387587bf023c7, type: 2}
   - {fileID: 1081289296412662, guid: 4b1398b1db249ac4eaeee904d093eb54, type: 2}
+  pfBoss: {fileID: 0}
   waves:
   - enemyCount: 15
     timeBetweenSpawns: 3
     amountPerSpawn: 3
+    enemiesChance:
+    - 0.9
+    - 0.1
   - enemyCount: 15
     timeBetweenSpawns: 3
     amountPerSpawn: 3
+    enemiesChance: []
   - enemyCount: 15
     timeBetweenSpawns: 3
     amountPerSpawn: 3
+    enemiesChance: []
   - enemyCount: 15
     timeBetweenSpawns: 3
     amountPerSpawn: 3
+    enemiesChance: []
   - enemyCount: 15
     timeBetweenSpawns: 3
     amountPerSpawn: 3
+    enemiesChance: []
   waveIndex: 0
   enemiesAlive: 0
 --- !u!1 &225810790

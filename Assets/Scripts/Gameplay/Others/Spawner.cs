@@ -8,11 +8,13 @@ public struct WAVE
     public int enemyCount;
     public float timeBetweenSpawns;
     public int amountPerSpawn;
+    public float[] enemiesChance;
 }
 
 public class Spawner : MonoBehaviour
 {
     public GameObject[] pfEnemies;
+    public GameObject pfBoss;
     public WAVE[] waves;
     public int waveIndex;
 
@@ -44,10 +46,22 @@ public class Spawner : MonoBehaviour
         {
             for (int i = 0; i < count; i++)
             {
-                Vector3 pos = Random.insideUnitCircle.normalized * Random.Range(15f, 17f);
-                Instantiate(pfEnemies[Random.Range(0, pfEnemies.Length)],
-                            pos, Quaternion.identity, transform);
+                int index = 0;
+                float chance = Random.value;
+                float curVal = 1f;
 
+                for (int j = 0; j < w.enemiesChance.Length; j++)
+                {
+                    curVal -= w.enemiesChance[j];
+                    if (chance >= curVal)
+                    {
+                        index = j;
+                        break;
+                    }
+                }
+
+                Vector3 pos = Random.insideUnitCircle.normalized * Random.Range(15f, 17f);
+                Instantiate(pfEnemies[index], pos, Quaternion.identity, transform);
             }
 
             w.enemyCount -= count;
@@ -57,6 +71,12 @@ public class Spawner : MonoBehaviour
             yield return new WaitForSeconds(w.timeBetweenSpawns);
         }
 
-        Spawner.instance.waveIndex++;
+        waveIndex++;
+
+        if (waveIndex == waves.Length)
+        {
+            Vector3 pos = Random.insideUnitCircle.normalized * Random.Range(15f, 17f);
+            Instantiate(pfBoss, pos, Quaternion.identity, transform);
+        }
     }
 }
