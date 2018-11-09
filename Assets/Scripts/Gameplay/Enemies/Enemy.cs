@@ -10,13 +10,14 @@ public class Enemy : MonoBehaviour, IDamageable
     public int maxHealth;
     public bool targeted;
 
-    private float health;
-    private bool canMove = true;
+    protected float health;
+    protected bool canMove = true;
 
-    private Transform _transform;
-    private Rigidbody2D _rigidbody;
+    protected Transform _transform;
+    protected Rigidbody2D _rigidbody;
+    protected Transform _target;
 
-    private void Start()
+    protected void Start()
     {
         _transform = transform;
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -24,13 +25,19 @@ public class Enemy : MonoBehaviour, IDamageable
         health = maxHealth;
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
+        _target = GameManager.instance._baseNode.transform.Find("Content");
+
         if (!canMove)
             return;
 
-        Vector2 dir = (GameManager.instance._baseNode.transform.position - 
-                        transform.position).normalized;
+        Move();
+    }
+
+    protected virtual void Move()
+    {
+        Vector2 dir = (_target.position - _transform.position).normalized;
 
         Collider2D[] cols = Physics2D.OverlapCircleAll(_transform.position, 1f, LayerMask.GetMask("Enemy"));
         foreach (Collider2D col in cols)
@@ -40,12 +47,11 @@ public class Enemy : MonoBehaviour, IDamageable
         _transform.up = dir;
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    protected virtual void OnTriggerEnter2D(Collider2D col)
     {
         if (col.CompareTag("Base"))
         {
-            GameManager.instance._baseNode.transform.Find("Content").
-                   GetComponent<IDamageable>().TakeDamage(damage);
+            _target.GetComponent<IDamageable>().TakeDamage(damage);
 
             Spawner.instance.enemiesAlive--;
 
@@ -87,5 +93,15 @@ public class Enemy : MonoBehaviour, IDamageable
         });
 
         return false;
+    }
+
+    public bool IsTargeted()
+    {
+        return targeted;
+    }
+
+    public void SetTarget()
+    {
+        targeted = true;
     }
 }

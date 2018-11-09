@@ -42,4 +42,13 @@ public class Base : MonoBehaviour, IDamageable
 
         return (health == 0);
     }
+
+    public bool IsTargeted()
+    {
+        return false;
+    }
+
+    public void SetTarget()
+    {
+    }
 }

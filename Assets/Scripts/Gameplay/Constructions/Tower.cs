@@ -34,7 +34,7 @@ public class Tower : Construction
         bool shot = false;
         foreach (Collider2D col in cols)
         {
-            if (col && canFire && !col.GetComponent<Enemy>().targeted)
+            if (col && canFire && !col.GetComponent<IDamageable>().IsTargeted())
             {
                 Shoot(col.transform);
                 shot = true;
@@ -71,7 +71,7 @@ public class Tower : Construction
 
     private void Shoot(Transform target)
     {
-        target.GetComponent<Enemy>().targeted = true;
+        target.GetComponent<IDamageable>().SetTarget();
 
         Projectile p = Instantiate(pfProjectile, _turret.position,
                         _turret.rotation, _transform).GetComponent<Projectile>();

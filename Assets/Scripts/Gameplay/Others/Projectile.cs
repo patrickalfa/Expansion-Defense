@@ -24,7 +24,6 @@ public class Projectile : MonoBehaviour
             _transform.up = dir;
             _transform.position += _transform.up * speed * Time.fixedDeltaTime;
         }
-
     }
 
     private void OnTriggerEnter2D(Collider2D col)
