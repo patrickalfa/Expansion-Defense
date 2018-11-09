@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public Node _baseNode;
     public SpriteRenderer _darkness;
     public Light _light;
+    public string[] nightQuotes, dayQuotes;
 
     
 
@@ -111,6 +112,10 @@ public class GameManager : MonoBehaviour
                 SetDarkness((float)time / (float)maxTime);
             }
 
+            UIManager.instance.Log(
+                nightQuotes[Random.Range(0, nightQuotes.Length)],
+                new Color(1f, 1f, 1f, .75f));
+
             stage = GAME_STAGE.DEFENSE;
             yield return new WaitForEndOfFrame();
 
@@ -131,6 +136,10 @@ public class GameManager : MonoBehaviour
 
                 yield return new WaitForEndOfFrame();
             }
+
+            UIManager.instance.Log(
+                dayQuotes[Random.Range(0, dayQuotes.Length)],
+                new Color(0f, 0f, 0f, .75f));
         }
     }
 

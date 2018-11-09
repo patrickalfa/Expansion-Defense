@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     public Text txtWood;
     public Text txtStone;
     public Text txtStage;
+    public Text txtLog;
 
     public GameObject pnlStages;
     public Button[] btnStages;
@@ -22,14 +23,25 @@ public class UIManager : MonoBehaviour
 
     ///////////////////////////////////
 
+    private static UIManager m_instance;
+    public static UIManager instance
+    {
+        get
+        {
+            if (m_instance == null)
+                m_instance = FindObjectOfType<UIManager>();
+            return m_instance;
+        }
+    }
+
     private void LateUpdate()
     {
         txtTimer.text = GameManager.instance.time.ToString();
 
-        txtWood.text = "W: " + GameManager.instance.wood +
+        txtWood.text = GameManager.instance.wood +
             " (+" + GameManager.instance.woodRate + ")";
 
-        txtStone.text = "G: " + GameManager.instance.gold +
+        txtStone.text = GameManager.instance.gold +
             " (+" + GameManager.instance.goldRate + ")";
 
 
@@ -74,5 +86,19 @@ public class UIManager : MonoBehaviour
         btnConstructions[lateConstructionIndex].transform.Find("Outline").gameObject.SetActive(false);
         btnConstructions[Constructor.instance.constructionIndex].transform.Find("Outline").gameObject.SetActive(true);
         lateConstructionIndex = Constructor.instance.constructionIndex;
+    }
+
+    public void Log(string text, Color color)
+    {
+        txtLog.text = text;
+        txtLog.color = color;
+
+        CancelInvoke("ClearLog");
+        Invoke("ClearLog", text.Length / 10f);
+    }
+
+    private void ClearLog()
+    {
+        txtLog.text = "";
     }
 }

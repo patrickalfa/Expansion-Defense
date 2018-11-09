@@ -12,24 +12,38 @@ public class Construction : MonoBehaviour
 
     protected Node node;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         _transform = transform;
         _sprite = GetComponent<SpriteRenderer>();
+        _sprite.material.color = new Color(1f, 1f, 1f, .5f);
     }
+
+    public virtual void CheckAvailable(Node node)
+    {
+        if (CanBuild(node))
+            _sprite.material.color = new Color(1f, 1f, 1f, .5f);
+        else
+            _sprite.material.color = new Color(1f, 0f, 0f, .5f);
+
+        _sprite.sortingOrder = 9999;
+    }
+
 
     public virtual bool Build(Node node)
     {
-        if (GameManager.instance.gold < cost)
+        if (!CanBuild(node, true))
             return false;
 
         built = true;
         node.occupied = true;
+        node.contentSprite = _sprite;
+        transform.parent = node.transform;
 
         this.node = node;
 
         GameManager.instance.gold -= cost;
-        _sprite.color = Color.white;
+        _sprite.material.color = Color.white;
 
         SetSortingOrder(node.GetComponent<SpriteRenderer>().sortingOrder + 102);
 
@@ -40,5 +54,43 @@ public class Construction : MonoBehaviour
     {
         if (_sprite)
             _sprite.sortingOrder = sortingOrder;
+    }
+
+    protected virtual bool CanBuild(Node node, bool log = false)
+    {
+        if (node.occupied)
+        {
+            if (log)
+                UIManager.instance.Log("CAN'T BUILD.",
+                    new Color(1f, 0f, 0f, .75f));
+
+            return false;
+        }
+        if (GameManager.instance.gold < cost)
+        {
+            if (log)
+                UIManager.instance.Log("NOT ENOUGH GOLD.",
+                    new Color(1f, 0f, 0f, .75f));
+
+            return false;
+        }
+        if (!IsLit())
+        {
+            if (log)
+                UIManager.instance.Log("NOT ENOUGH LIGHT.",
+                    new Color(1f, 0f, 0f, .75f));
+
+            return false;
+        }
+
+        return true;
+    }
+
+    protected bool IsLit()
+    {
+        if (!Physics2D.OverlapCircle(_transform.position, 1.5f, LayerMask.GetMask("Light")))
+            return false;
+
+        return true;
     }
 }

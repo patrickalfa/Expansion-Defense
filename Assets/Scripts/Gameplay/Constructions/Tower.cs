@@ -17,13 +17,14 @@ public class Tower : Construction
     private Transform _turret;
     private GameObject _rangeIndicator;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
 
         _turret = _transform.Find("Turret");
         _rangeIndicator = _transform.Find("Range").gameObject;
         _rangeIndicator.transform.localScale = Vector3.one * range * 2f;
+        _turret.GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, .5f);
     }
 
     private void FixedUpdate()
@@ -53,8 +54,19 @@ public class Tower : Construction
         node.GetComponent<BoxCollider2D>().enabled = false;
         GetComponent<BoxCollider2D>().enabled = true;
         _rangeIndicator.SetActive(false);
+        _turret.GetComponent<SpriteRenderer>().material.color = Color.white;
 
         return true;
+    }
+
+    public override void CheckAvailable(Node node)
+    {
+        base.CheckAvailable(node);
+
+        if (CanBuild(node))
+            _turret.GetComponent<SpriteRenderer>().material.color = new Color(1f, 1f, 1f, .5f);
+        else
+            _turret.GetComponent<SpriteRenderer>().material.color = new Color(1f, 0f, 0f, .5f);
     }
 
     private void Shoot(Transform target)
