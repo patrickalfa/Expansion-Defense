@@ -53,4 +53,10 @@ public class Mine : Construction
         GameManager.instance.goldRate += goldRateValue;
         return true;
     }
+
+    public override void Demolish()
+    {
+        GameManager.instance.goldRate -= goldRateValue;
+        base.Demolish();
+    }
 }

@@ -59,6 +59,12 @@ public class Tower : Construction
         return true;
     }
 
+    public override void Demolish()
+    {
+        _transform.parent.GetComponent<BoxCollider2D>().enabled = true;
+        base.Demolish();
+    }
+
     public override void CheckAvailable(Node node)
     {
         base.CheckAvailable(node);

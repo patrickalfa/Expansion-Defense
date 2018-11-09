@@ -50,6 +50,11 @@ public class Construction : MonoBehaviour
         return true;
     }
 
+    public virtual void Demolish()
+    {
+        Destroy(gameObject);
+    }
+    
     public virtual void SetSortingOrder(int sortingOrder)
     {
         if (_sprite)

@@ -53,4 +53,10 @@ public class Woodcutter : Construction
         GameManager.instance.woodRate += woodRateValue;
         return true;
     }
+
+    public override void Demolish()
+    {
+        GameManager.instance.woodRate -= woodRateValue;
+        base.Demolish();
+    }
 }
