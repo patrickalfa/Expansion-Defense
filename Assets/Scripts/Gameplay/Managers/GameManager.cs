@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
 
             UIManager.instance.Log(
                 dayQuotes[Random.Range(0, dayQuotes.Length)],
-                new Color(0f, 0f, 0f, .75f));
+                new Color(0f, 0f, 0f, 1f));
         }
     }
 

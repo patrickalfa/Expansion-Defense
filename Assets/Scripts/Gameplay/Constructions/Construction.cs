@@ -58,7 +58,7 @@ public class Construction : MonoBehaviour
 
     protected virtual bool CanBuild(Node node, bool log = false)
     {
-        if (node.occupied)
+        if (node.content != NODE_CONTENT.EMPTY || node.occupied)
         {
             if (log)
                 UIManager.instance.Log("CAN'T BUILD.",

@@ -16,7 +16,32 @@ public class Mine : Construction
 
     protected override bool CanBuild(Node node, bool log = false)
     {
-        return (base.CanBuild(node, log) && node.content == NODE_CONTENT.STONES);
+        if (node.content != NODE_CONTENT.STONES || node.occupied)
+        {
+            if (log)
+                UIManager.instance.Log("CAN'T BUILD.",
+                    new Color(1f, 0f, 0f, .75f));
+
+            return false;
+        }
+        if (GameManager.instance.gold < cost)
+        {
+            if (log)
+                UIManager.instance.Log("NOT ENOUGH GOLD.",
+                    new Color(1f, 0f, 0f, .75f));
+
+            return false;
+        }
+        if (!IsLit())
+        {
+            if (log)
+                UIManager.instance.Log("NOT ENOUGH LIGHT.",
+                    new Color(1f, 0f, 0f, .75f));
+
+            return false;
+        }
+
+        return true;
     }
 
     public override bool Build(Node node)
