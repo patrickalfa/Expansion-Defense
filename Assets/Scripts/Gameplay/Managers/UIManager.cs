@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public Text txtTimer;
     public Text txtWood;
     public Text txtStone;
+    public Text txtHealth;
     public Text txtStage;
     public Text txtLog;
 
@@ -44,6 +45,8 @@ public class UIManager : MonoBehaviour
         txtStone.text = GameManager.instance.gold +
             " (+" + GameManager.instance.goldRate + ")";
 
+        txtHealth.text = GameManager.instance._base.health +
+            " (+" + GameManager.instance.healRate + ")";
 
         if (GameManager.instance.lateStage != GameManager.instance.stage)
             HandleStageUI();

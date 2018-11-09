@@ -34,14 +34,14 @@ public class GameManager : MonoBehaviour
     public int gold;
     public int woodRate;
     public int goldRate;
+    public int healRate;
 
     [Header("References")]
     public Node _baseNode;
     public SpriteRenderer _darkness;
     public Light _light;
     public string[] nightQuotes, dayQuotes;
-
-    
+    public Base _base;    
 
     private static GameManager m_instance;
     public static GameManager instance
@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
         Generator.instance.Generate();
 
         Camera.main.transform.position = _baseNode.transform.position + (Vector3.back * 10f);
+        _base = _baseNode.transform.GetComponentInChildren<Base>();
 
         state = GAME_STATE.PLANNING;
 
@@ -108,6 +109,7 @@ public class GameManager : MonoBehaviour
                 time--;
                 wood += woodRate;
                 gold += goldRate;
+                _base.Heal(healRate);
 
                 SetDarkness((float)time / (float)maxTime);
             }

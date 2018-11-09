@@ -7,12 +7,17 @@ public class Base : MonoBehaviour, IDamageable
 {
     public int maxHealth;
 
-    private int health;
+    private int m_health;
 
     private Transform _transform;
     private SpriteRenderer _sprite;
     private Light _light;
     private Animator _animator;
+
+    public float health
+    {
+        get { return m_health; }
+    }
 
     private void Start()
     {
@@ -24,11 +29,16 @@ public class Base : MonoBehaviour, IDamageable
         health = maxHealth;
     }
 
+    public void Heal(int amount)
+    {
+        m_health = Mathf.Clamp(m_health + amount, 0, maxHealth);
+    }
+
     public bool TakeDamage(int damage)
     {
-        health = Mathf.Clamp(health - damage, 0, maxHealth);
+        m_health = Mathf.Clamp(m_health - damage, 0, maxHealth);
 
-        float factor = (float)health / (float)maxHealth;
+        float factor = (float)m_health / (float)maxHealth;
 
         _sprite.material.color = Color.Lerp(Color.grey, Color.white, factor);
         _light.intensity = Mathf.Lerp(0f, 6f, factor);
@@ -40,7 +50,7 @@ public class Base : MonoBehaviour, IDamageable
             _transform.localScale = Vector3.one;
         });
 
-        return (health == 0);
+        return (m_health == 0);
     }
 
     public bool IsTargeted()
