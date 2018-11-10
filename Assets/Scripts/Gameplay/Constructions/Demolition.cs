@@ -49,6 +49,7 @@ public class Demolition : Construction
         Destroy(gameObject);
 
         SoundManager.PlaySound("build");
+        GameManager.instance.ScreenShake(.1f, .1f, 50);
 
         return true;
     }

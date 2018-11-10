@@ -86,6 +86,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
             Spawner.instance.enemiesAlive--;
 
+            GameManager.instance.FreezeFrame(.1f);
+
             return true;
         }
 

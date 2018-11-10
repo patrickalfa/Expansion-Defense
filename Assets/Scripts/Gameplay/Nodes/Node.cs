@@ -142,6 +142,7 @@ public class Node : MonoBehaviour
             contentSprite.transform.localScale = Vector3.one * .95f;
 
         SoundManager.PlaySound("build");
+        GameManager.instance.ScreenShake(.1f, .1f, 50);
 
         return true;
     }

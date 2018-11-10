@@ -85,7 +85,7 @@ public class SoundManager : MonoBehaviour
 
         sfxVolume = 1f;
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     private void GetAudioSources()

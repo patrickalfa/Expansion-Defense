@@ -77,6 +77,7 @@ public class Spawner : MonoBehaviour
         {
             Vector3 pos = Random.insideUnitCircle.normalized * Random.Range(15f, 17f);
             Instantiate(pfBoss, pos, Quaternion.identity, transform);
+            enemiesAlive++;
         }
     }
 }

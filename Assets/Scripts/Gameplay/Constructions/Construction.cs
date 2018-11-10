@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Construction : MonoBehaviour
 {
@@ -47,7 +48,14 @@ public class Construction : MonoBehaviour
 
         SetSortingOrder(node.GetComponent<SpriteRenderer>().sortingOrder + 102);
 
+        _transform.DOKill();
+        _transform.DOPunchScale(Vector3.one * .5f, .25f).OnComplete(() =>
+        {
+            _transform.localScale = Vector3.one;
+        });
+
         SoundManager.PlaySound("build");
+        GameManager.instance.ScreenShake(.1f, .1f, 50);
 
         return true;
     }

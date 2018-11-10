@@ -145,7 +145,7 @@ MonoBehaviour:
   range: 1
   reloadTime: 2
   rotationSpeed: 25
-  pfProjectile: {fileID: 1169794493057568, guid: 72c24a10b5897cc499c7330734b71ddf,
+  pfProjectile: {fileID: 1169794493057568, guid: 8f9cf269c4999344fbafb1efa8360b1f,
     type: 2}
 --- !u!212 &212162214921453050
 SpriteRenderer:

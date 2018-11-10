@@ -61,6 +61,11 @@ public class Base : MonoBehaviour, IDamageable
         UpdateGem(.25f);
 
         SoundManager.PlaySound("hurt_crystal");
+        GameManager.instance.FreezeFrame(.1f);
+        GameManager.instance.ScreenShake(.1f, .1f, 50);
+
+        if (m_health == 0)
+            GameManager.instance.EndGame(false);
 
         return (m_health == 0);
     }

@@ -75,8 +75,10 @@ public class Boss : EnemyShooter
 
     protected void SpawnEnemy()
     {
-        Enemy e = Instantiate(pfEnemy, _transform.position, _transform.rotation,
+        Instantiate(pfEnemy, _transform.position, _transform.rotation,
             Spawner.instance.transform).GetComponent<Enemy>();
+
+        Spawner.instance.enemiesAlive++;
 
         canSpawn = false;
         Invoke("ReloadSpawning", reloadTime);

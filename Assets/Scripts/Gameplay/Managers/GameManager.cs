@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public enum GAME_STATE
 {
@@ -41,7 +43,9 @@ public class GameManager : MonoBehaviour
     public SpriteRenderer _darkness;
     public Light _light;
     public string[] nightQuotes, dayQuotes;
-    public Base _base;    
+    public Base _base;
+
+    public bool started = false;
 
     private static GameManager m_instance;
     public static GameManager instance
@@ -54,9 +58,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void StartGame()
     {
-        Random.InitState(seed);
+        started = true;
+
+        Random.InitState((int)(Random.value * 10000f));
         Generator.instance.Generate();
 
         Camera.main.transform.position = _baseNode.transform.position + (Vector3.back * 10f);
@@ -121,6 +127,8 @@ public class GameManager : MonoBehaviour
                 new Color(1f, 1f, 1f, .75f));
 
             SoundManager.PlaySound("night");
+            SoundManager.SetChannelVolume("Drums", 1f);
+            GameManager.instance.ScreenShake(.25f, .25f, 50);
 
             stage = GAME_STAGE.DEFENSE;
             yield return new WaitForEndOfFrame();
@@ -143,10 +151,14 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
 
+            if (Spawner.instance.waveIndex == Spawner.instance.waves.Length)
+                EndGame(true);
+
             UIManager.instance.Log(
                 dayQuotes[Random.Range(0, dayQuotes.Length)],
                 new Color(0f, 0f, 0f, 1f));
             SoundManager.PlaySound("day");
+            SoundManager.SetChannelVolume("Drums", 0f);
         }
     }
 
@@ -171,11 +183,32 @@ public class GameManager : MonoBehaviour
         */
     }
 
-    
-
     public void SetStage(int stage)
     {
         this.stage = (GAME_STAGE)stage;
         SoundManager.PlaySound("button");
+    }
+
+    public void ScreenShake(float time, float strength, int vibrato)
+    {
+        Camera.main.DOShakePosition(time, strength, vibrato).SetUpdate(true);
+    }
+
+    public void FreezeFrame(float time)
+    {
+        Time.timeScale = 0f;
+
+        transform.DOMove(Vector3.zero, time).SetUpdate(true).OnComplete(() =>
+        {
+            Time.timeScale = 1f;
+        });
+    }
+
+    public void EndGame(bool success)
+    {
+        if (success)
+            SceneManager.LoadScene("Success");
+        else
+            SceneManager.LoadScene("Failure");
     }
 }

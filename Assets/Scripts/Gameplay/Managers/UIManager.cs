@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
@@ -37,6 +38,9 @@ public class UIManager : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (!GameManager.instance.started)
+            return;
+
         txtTimer.text = GameManager.instance.time.ToString();
 
         txtWood.text = GameManager.instance.wood +
@@ -103,5 +107,18 @@ public class UIManager : MonoBehaviour
     private void ClearLog()
     {
         txtLog.text = "";
+    }
+
+    public void OnBtnPlay()
+    {
+        transform.Find("Start").gameObject.SetActive(false);
+        SoundManager.PlaySound("button");
+        GameManager.instance.StartGame();
+    }
+
+    public void OnBtnQuit()
+    {
+        SoundManager.PlaySound("button");
+        Application.Quit();
     }
 }
