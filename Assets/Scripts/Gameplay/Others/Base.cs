@@ -26,18 +26,11 @@ public class Base : MonoBehaviour, IDamageable
         _animator = GetComponent<Animator>();
         _light = _transform.GetComponentInChildren<Light>();
 
-        health = maxHealth;
+        m_health = maxHealth;
     }
 
-    public void Heal(int amount)
+    private void UpdateGem(float punch)
     {
-        m_health = Mathf.Clamp(m_health + amount, 0, maxHealth);
-    }
-
-    public bool TakeDamage(int damage)
-    {
-        m_health = Mathf.Clamp(m_health - damage, 0, maxHealth);
-
         float factor = (float)m_health / (float)maxHealth;
 
         _sprite.material.color = Color.Lerp(Color.grey, Color.white, factor);
@@ -45,10 +38,29 @@ public class Base : MonoBehaviour, IDamageable
         _animator.speed = Mathf.Lerp(0f, 1f, factor);
 
         _transform.DOKill();
-        _transform.DOPunchScale(Vector3.one * .25f, .1f).OnComplete(() =>
+        _transform.DOPunchScale(Vector3.one * punch, .1f).OnComplete(() =>
         {
             _transform.localScale = Vector3.one;
         });
+    }
+
+    public void Heal(int amount)
+    {
+        if (m_health == maxHealth)
+            return;
+
+        m_health = Mathf.Clamp(m_health + amount, 0, maxHealth);
+
+        UpdateGem(.1f);
+    }
+
+    public bool TakeDamage(int damage)
+    {
+        m_health = Mathf.Clamp(m_health - damage, 0, maxHealth);
+
+        UpdateGem(.25f);
+
+        SoundManager.PlaySound("hurt_crystal");
 
         return (m_health == 0);
     }

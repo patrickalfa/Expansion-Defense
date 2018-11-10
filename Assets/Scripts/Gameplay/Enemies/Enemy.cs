@@ -74,6 +74,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
         _transform.DOKill();
 
+        SoundManager.PlaySound("hurt_enemy");
+
         if (health == 0)
         {
             GetComponent<Collider2D>().enabled = false;

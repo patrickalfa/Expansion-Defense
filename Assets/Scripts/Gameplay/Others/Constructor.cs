@@ -45,5 +45,7 @@ public class Constructor : MonoBehaviour
         _construction.gameObject.SetActive(false);
         _construction.SetSortingOrder(9999);
         _construction.transform.parent = transform;
+
+        SoundManager.PlaySound("button");
     }
 }

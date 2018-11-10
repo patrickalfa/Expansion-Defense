@@ -47,6 +47,8 @@ public class Construction : MonoBehaviour
 
         SetSortingOrder(node.GetComponent<SpriteRenderer>().sortingOrder + 102);
 
+        SoundManager.PlaySound("build");
+
         return true;
     }
 

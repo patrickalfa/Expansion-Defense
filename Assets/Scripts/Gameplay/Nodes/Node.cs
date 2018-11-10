@@ -78,6 +78,9 @@ public class Node : MonoBehaviour
             Constructor.instance._construction.SetSortingOrder(_sprite.sortingOrder + 102);
             Constructor.instance._construction.CheckAvailable(this);
         }
+
+        if (GameManager.instance.stage != GAME_STAGE.DEFENSE)
+            SoundManager.PlaySound("over" + Random.Range(0, 3), false, .5f);
     }
 
     private void OnMouseExit()
@@ -137,6 +140,8 @@ public class Node : MonoBehaviour
             contentSprite.transform.localScale = Vector3.one * .75f;
         else if (content == NODE_CONTENT.STONES)
             contentSprite.transform.localScale = Vector3.one * .95f;
+
+        SoundManager.PlaySound("build");
 
         return true;
     }

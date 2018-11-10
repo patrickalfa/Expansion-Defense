@@ -8,7 +8,7 @@ public class Demolition : Construction
     {
         if (!node.occupied)
         {
-            if (node.content != NODE_CONTENT.STONE &&
+            if (node.content != NODE_CONTENT.STONES &&
                 node.content != NODE_CONTENT.WOODS)
             {
                 if (log)
@@ -47,6 +47,8 @@ public class Demolition : Construction
         }
 
         Destroy(gameObject);
+
+        SoundManager.PlaySound("build");
 
         return true;
     }

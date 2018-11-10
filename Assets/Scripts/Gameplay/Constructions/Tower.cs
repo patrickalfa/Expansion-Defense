@@ -90,6 +90,8 @@ public class Tower : Construction
 
         canFire = false;
         Invoke("Reload", reloadTime);
+
+        SoundManager.PlaySound("shoot");
     }
 
     private void Reload()

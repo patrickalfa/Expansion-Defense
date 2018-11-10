@@ -48,6 +48,8 @@ public class EnemyShooter : Enemy
 
         canFire = false;
         Invoke("Reload", reloadTime);
+
+        SoundManager.PlaySound("shoot");
     }
 
     protected void Reload()

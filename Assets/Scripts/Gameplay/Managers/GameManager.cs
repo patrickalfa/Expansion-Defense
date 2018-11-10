@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
 
         state = GAME_STATE.PLANNING;
 
+        SoundManager.sfxVolume = .5f;
+
         StartCoroutine(Countdown());
     }
 
@@ -118,6 +120,8 @@ public class GameManager : MonoBehaviour
                 nightQuotes[Random.Range(0, nightQuotes.Length)],
                 new Color(1f, 1f, 1f, .75f));
 
+            SoundManager.PlaySound("night");
+
             stage = GAME_STAGE.DEFENSE;
             yield return new WaitForEndOfFrame();
 
@@ -142,6 +146,7 @@ public class GameManager : MonoBehaviour
             UIManager.instance.Log(
                 dayQuotes[Random.Range(0, dayQuotes.Length)],
                 new Color(0f, 0f, 0f, 1f));
+            SoundManager.PlaySound("day");
         }
     }
 
@@ -171,5 +176,6 @@ public class GameManager : MonoBehaviour
     public void SetStage(int stage)
     {
         this.stage = (GAME_STAGE)stage;
+        SoundManager.PlaySound("button");
     }
 }
