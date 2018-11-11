@@ -7,7 +7,7 @@ A base building and tower defense hybrid made for the UFSC Game Jam #1, in which
 
 Darkness is expanding, you need to protect the last light left in this world.
 
-
+<br>
 
 **During the day:**
 Expand your base, gather resources and build defenses to protect the light.
@@ -15,7 +15,7 @@ Expand your base, gather resources and build defenses to protect the light.
 **During the night:**
 Survive...
 
-
+<br>
 
 *Code and music by Patrick Clemer Alfarth*
 
