@@ -92,6 +92,7 @@ MonoBehaviour:
   damage: 0
   speed: 7
   target: {fileID: 0}
+  lifetime: 2
 --- !u!212 &212278799569111290
 SpriteRenderer:
   m_ObjectHideFlags: 1

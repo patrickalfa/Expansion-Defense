@@ -14,6 +14,12 @@ public class Boss : EnemyShooter
 
     protected bool canSpawn = true;
 
+    protected override void Start()
+    {
+        base.Start();
+        SoundManager.PlaySound("night");
+    }
+
     protected override void Move()
     {
         float distance = Vector2.Distance(_target.position, _transform.position);
@@ -80,8 +86,10 @@ public class Boss : EnemyShooter
 
         Spawner.instance.enemiesAlive++;
 
+        SoundManager.PlaySound("hurt_enemy");
+
         canSpawn = false;
-        Invoke("ReloadSpawning", reloadTime);
+        Invoke("ReloadSpawning", reloadTime * .15f);
     }
 
     protected void ReloadSpawning()

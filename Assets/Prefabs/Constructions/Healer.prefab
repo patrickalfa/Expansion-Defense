@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   built: 0
-  cost: 10
+  cost: 100
   healRateValue: 1
 --- !u!120 &120869394381457118
 LineRenderer:

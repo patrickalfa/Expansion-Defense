@@ -46,12 +46,32 @@ public class Node : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.instance.state == GAME_STATE.PAUSED)
+        {
+            _overlay.gameObject.SetActive(false);
+            return;
+        }
+
         if (!over)
             UpdateSortingOrder(Mathf.RoundToInt(transform.position.y * 100f) * -1);
     }
 
+    private void OnMouseOver()
+    {
+        if (GameManager.instance.stage == GAME_STAGE.CONSTRUCTION)
+        {
+            if (!Constructor.instance._construction)
+                return;
+
+            Constructor.instance._construction.CheckAvailable(this);
+        }
+    }
+
     private void OnMouseEnter()
     {
+        if (GameManager.instance.state == GAME_STATE.PAUSED)
+            return;
+
         over = true;
 
         if (GameManager.instance.stage == GAME_STAGE.EXPANSION || occupied)
@@ -80,11 +100,14 @@ public class Node : MonoBehaviour
         }
 
         if (GameManager.instance.stage != GAME_STAGE.DEFENSE)
-            SoundManager.PlaySound("over" + Random.Range(0, 3), false, .5f);
+            SoundManager.PlaySound("over" + Random.Range(0, 3), false, .75f);
     }
 
     private void OnMouseExit()
     {
+        if (GameManager.instance.state == GAME_STATE.PAUSED)
+            return;
+
         over = false;
 
         _overlay.gameObject.SetActive(false);
@@ -98,7 +121,8 @@ public class Node : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (GameManager.instance.state == GAME_STATE.DRAGGING)
+        if (GameManager.instance.state == GAME_STATE.DRAGGING ||
+            GameManager.instance.state == GAME_STATE.PAUSED)
             return;
 
         if (GameManager.instance.stage == GAME_STAGE.EXPANSION)

@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour, IDamageable
     protected Rigidbody2D _rigidbody;
     protected Transform _target;
 
-    protected void Start()
+    protected virtual void Start()
     {
         _transform = transform;
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -78,21 +78,25 @@ public class Enemy : MonoBehaviour, IDamageable
 
         if (health == 0)
         {
+            Spawner.instance.enemiesAlive--;
+
             GetComponent<Collider2D>().enabled = false;
             _transform.DOScale(0f, .25f).OnComplete(() =>
             {
                 Destroy(gameObject);
             });
 
-            Spawner.instance.enemiesAlive--;
 
             GameManager.instance.FreezeFrame(.1f);
 
             return true;
         }
 
+        _transform.localScale = Vector3.one;
+
         _transform.DOPunchScale(Vector3.one * .25f, .25f).OnComplete(() =>
         {
+            _transform.localScale = Vector3.one;
             canMove = true;
         });
 

@@ -31,6 +31,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PlaySoundUI(string name)
+    {
+        PlaySound((AudioClip)audios[name], false, 1f);
+    }
+
     public static void PlaySound(string name, bool loop = false, float volume = 1f)
     {
         PlaySound((AudioClip)audios[name], loop, volume);
@@ -44,7 +49,8 @@ public class SoundManager : MonoBehaviour
             {
                 src.loop = loop;
                 src.volume = sfxVolume * volume;
-                src.PlayOneShot(sound);
+                src.clip = sound;
+                src.Play();
                 return;
             }
         }

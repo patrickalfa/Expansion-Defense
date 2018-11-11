@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   built: 0
-  cost: 10
+  cost: 15
   goldRateValue: 1
 --- !u!198 &198550886394695490
 ParticleSystem:

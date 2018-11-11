@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   built: 0
-  cost: 5
+  cost: 15
 --- !u!212 &212647869092215102
 SpriteRenderer:
   m_ObjectHideFlags: 1

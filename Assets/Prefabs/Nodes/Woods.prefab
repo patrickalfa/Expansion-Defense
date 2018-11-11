@@ -591,7 +591,7 @@ MonoBehaviour:
   y: 0
   built: 0
   occupied: 0
-  cost: 10
+  cost: 20
   content: 1
   groundBuilt: {fileID: 21300004, guid: 0de62bef70dc5484ab0634b7fd84f14d, type: 3}
   contentSprite: {fileID: 0}
@@ -941,12 +941,12 @@ SpriteRenderer:
   m_SortingLayerID: 1544740509
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a982fc8dd62c7c344b34ab5a08bd4092, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cc8ec57c9c2e7634fbf1eaaf1a7c59a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7490196}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

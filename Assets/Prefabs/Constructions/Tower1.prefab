@@ -158,10 +158,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   built: 0
-  cost: 15
+  cost: 20
   damage: 2
   range: 2
-  reloadTime: 1
+  reloadTime: 1.5
   pfProjectile: {fileID: 4247639205336544, guid: d6f80dee0c672a044aeb4f50281f1115,
     type: 2}
 --- !u!212 &212155952796885310
@@ -292,7 +292,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ef922b8ca489c1444bbd4c0b39590146, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.2509804}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.101960786}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

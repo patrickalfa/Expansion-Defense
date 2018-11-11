@@ -707,7 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7e3ceb61abd4e4098f4446815bb6f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 100
 --- !u!212 &212014359610045302
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -1295,12 +1295,12 @@ SpriteRenderer:
   m_SortingLayerID: 1544740509
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300006, guid: a982fc8dd62c7c344b34ab5a08bd4092, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cc8ec57c9c2e7634fbf1eaaf1a7c59a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.7490196}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

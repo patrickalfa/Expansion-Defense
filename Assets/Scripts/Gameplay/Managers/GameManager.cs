@@ -62,7 +62,9 @@ public class GameManager : MonoBehaviour
     {
         started = true;
 
-        Random.InitState((int)(Random.value * 10000f));
+        SoundManager.sfxVolume = .5f;
+
+        Random.InitState(seed);
         Generator.instance.Generate();
 
         Camera.main.transform.position = _baseNode.transform.position + (Vector3.back * 10f);
@@ -70,12 +72,43 @@ public class GameManager : MonoBehaviour
 
         state = GAME_STATE.PLANNING;
 
-        SoundManager.sfxVolume = .5f;
+        if (!PlayerPrefs.HasKey("Tutorial"))
+        {
+            Pause(true);
+            UIManager.instance.SetActive("Help", true);
+            PlayerPrefs.SetInt("Tutorial", 1);
+        }
 
         StartCoroutine(Countdown());
     }
 
     private void LateUpdate()
+    {
+        if (state != GAME_STATE.PAUSED)
+        {
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                Pause(true);
+                UIManager.instance.SetActive("Pause", true);
+            }
+        }
+        else
+        {
+            if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                Pause(false);
+                UIManager.instance.SetActive("Pause", false);
+                UIManager.instance.SetActive("Help", false);
+            }
+        }
+
+        OnStageChanged();
+
+        lateState = state;
+        lateStage = stage;
+    }
+
+    private void OnStageChanged()
     {
         if (lateStage != stage)
         {
@@ -94,12 +127,6 @@ public class GameManager : MonoBehaviour
                     break;
             }
         }
-
-        lateState = state;
-        lateStage = stage;
-
-        if (Input.GetMouseButtonUp(1))
-            time = 0;
     }
 
     private IEnumerator Countdown()
@@ -166,27 +193,15 @@ public class GameManager : MonoBehaviour
     {
         _light.intensity = Mathf.Lerp(0f, .75f, amount);
 
-        /*
-        amount *= .9f;
-
-        _darkness.color = new Color(0f, 0f, 0f, .9f - amount);
-
-        for (int x = 0; x < Generator.instance.size; x++)
-        {
-            for (int y = 0; y < Generator.instance.size; y++)
-            {
-                Node n = Generator.instance.GetNode(x, y);
-                if (!n.built)
-                    n.SetColor(new Color(.1f + amount, .1f + amount, .1f + amount, 1f));
-            }
-        }
-        */
+        SoundManager.SetChannelVolume("Drums", Mathf.Clamp(1f - (amount * 4f), 0f, 1f));
     }
 
     public void SetStage(int stage)
     {
         this.stage = (GAME_STAGE)stage;
-        SoundManager.PlaySound("button");
+
+        if (this.stage != GAME_STAGE.CONSTRUCTION)
+            SoundManager.PlaySound("button");
     }
 
     public void ScreenShake(float time, float strength, int vibrato)
@@ -200,15 +215,60 @@ public class GameManager : MonoBehaviour
 
         transform.DOMove(Vector3.zero, time).SetUpdate(true).OnComplete(() =>
         {
-            Time.timeScale = 1f;
+            if (state != GAME_STATE.PAUSED)
+                Time.timeScale = 1f;
         });
+    }
+
+    public void Pause(bool pause)
+    {
+        SoundManager.PlaySound("button");
+        Camera.main.GetComponent<AudioLowPassFilter>().
+            cutoffFrequency = (pause ? 1000 : 22000);
+
+        if (pause)
+        {
+            state = GAME_STATE.PAUSED;
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            state = GAME_STATE.DRAGGING;
+            Time.timeScale = 1f;
+        }
     }
 
     public void EndGame(bool success)
     {
+        if (state == GAME_STATE.PAUSED)
+            return;
+
+        Pause(true);
+
+        SoundManager.SetChannelVolume("Drums", 0f);
+        Camera.main.GetComponent<AudioLowPassFilter>().cutoffFrequency = 5000;
+
         if (success)
-            SceneManager.LoadScene("Success");
+        {
+            SoundManager.SetChannelVolume("Main", 0f);
+            SoundManager.PlaySound("happy", true);
+
+            UIManager.instance.SetActive("Success", true);
+            UIManager.instance.FadeIn("Success");
+        }
         else
-            SceneManager.LoadScene("Failure");
+        {
+            SoundManager.PlaySound("night");
+
+            UIManager.instance.SetActive("Failure", true);
+            UIManager.instance.FadeIn("Failure");
+        }
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1f;
+        SoundManager.PlaySound("button");
+        SceneManager.LoadScene(0);
     }
 }

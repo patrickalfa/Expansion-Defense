@@ -111,6 +111,14 @@ public class UIManager : MonoBehaviour
 
     public void OnBtnPlay()
     {
+        string field = transform.Find("Start").Find("Panel").
+                        Find("FldSeed").GetComponent<InputField>().text;
+        print(field);
+
+        GameManager.instance.seed = (field != "" ?
+            int.Parse(field) : (int)(Random.value * 10000f));
+
+
         transform.Find("Start").gameObject.SetActive(false);
         SoundManager.PlaySound("button");
         GameManager.instance.StartGame();
@@ -120,5 +128,26 @@ public class UIManager : MonoBehaviour
     {
         SoundManager.PlaySound("button");
         Application.Quit();
+    }
+
+    public void SetActive(string name, bool state)
+    {
+        transform.Find(name).gameObject.SetActive(state);
+    }
+
+    public void FadeIn(string name)
+    {
+        StartCoroutine("DoFadeIn", transform.Find(name).GetComponent<CanvasGroup>());
+    }
+
+    private IEnumerator DoFadeIn(CanvasGroup group)
+    {
+        group.alpha = 0f;
+
+        while (group.alpha < .9f)
+        {
+            yield return new WaitForEndOfFrame();
+            group.alpha += 0.01f;
+        }
     }
 }

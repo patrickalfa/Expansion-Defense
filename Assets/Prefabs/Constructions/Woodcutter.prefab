@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   built: 0
-  cost: 10
+  cost: 15
   woodRateValue: 1
 --- !u!212 &212460960422471116
 SpriteRenderer:

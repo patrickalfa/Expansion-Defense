@@ -22,6 +22,9 @@ public class CameraDrag : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (GameManager.instance.state == GAME_STATE.PAUSED)
+            return;
+
         HandleDrag();
         HandleZoom();
     }
